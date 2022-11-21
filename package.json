@@ -1,10 +1,4 @@
 {
-  "name": "vue-wp-starter",
-  "version": "1.0.0",
-  "description": "A WordPress Vue.js starter plugin",
-  "author": "Tareq Hasan <tareq@wedevs.com>",
-  "license": "GPLv2",
-  "private": true,
   "scripts": {
     "dev": "webpack --watch --progress --hide-modules",
     "dev-build": "webpack -d --mode development",

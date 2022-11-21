@@ -39,14 +39,15 @@ Domain Path: /languages
  */
 
 // don't call the file directly
-if ( !defined( 'ABSPATH' ) ) exit;
+if (!defined('ABSPATH')) exit;
 
 /**
- * Base_Plugin class
+ * Vue_Base_Plugin class
  *
- * @class Base_Plugin The class that holds the entire Base_Plugin plugin
+ * @class Vue_Base_Plugin The class that holds the entire Vue_Base_Plugin plugin
  */
-final class Base_Plugin {
+final class Vue_Base_Plugin
+{
 
     /**
      * Plugin version
@@ -63,32 +64,34 @@ final class Base_Plugin {
     private $container = array();
 
     /**
-     * Constructor for the Base_Plugin class
+     * Constructor for the Vue_Base_Plugin class
      *
      * Sets up all the appropriate hooks and actions
      * within our plugin.
      */
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->define_constants();
 
-        register_activation_hook( __FILE__, array( $this, 'activate' ) );
-        register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+        register_activation_hook(__FILE__, array($this, 'activate'));
+        register_deactivation_hook(__FILE__, array($this, 'deactivate'));
 
-        add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
+        add_action('plugins_loaded', array($this, 'init_plugin'));
     }
 
     /**
-     * Initializes the Base_Plugin() class
+     * Initializes the Vue_Base_Plugin() class
      *
-     * Checks for an existing Base_Plugin() instance
+     * Checks for an existing Vue_Base_Plugin() instance
      * and if it doesn't find one, creates it.
      */
-    public static function init() {
+    public static function init()
+    {
         static $instance = false;
 
-        if ( ! $instance ) {
-            $instance = new Base_Plugin();
+        if (!$instance) {
+            $instance = new Vue_Base_Plugin();
         }
 
         return $instance;
@@ -101,9 +104,10 @@ final class Base_Plugin {
      *
      * @return mixed
      */
-    public function __get( $prop ) {
-        if ( array_key_exists( $prop, $this->container ) ) {
-            return $this->container[ $prop ];
+    public function __get($prop)
+    {
+        if (array_key_exists($prop, $this->container)) {
+            return $this->container[$prop];
         }
 
         return $this->{$prop};
@@ -116,8 +120,9 @@ final class Base_Plugin {
      *
      * @return mixed
      */
-    public function __isset( $prop ) {
-        return isset( $this->{$prop} ) || isset( $this->container[ $prop ] );
+    public function __isset($prop)
+    {
+        return isset($this->{$prop}) || isset($this->container[$prop]);
     }
 
     /**
@@ -125,13 +130,14 @@ final class Base_Plugin {
      *
      * @return void
      */
-    public function define_constants() {
-        define( 'BASEPLUGIN_VERSION', $this->version );
-        define( 'BASEPLUGIN_FILE', __FILE__ );
-        define( 'BASEPLUGIN_PATH', dirname( BASEPLUGIN_FILE ) );
-        define( 'BASEPLUGIN_INCLUDES', BASEPLUGIN_PATH . '/includes' );
-        define( 'BASEPLUGIN_URL', plugins_url( '', BASEPLUGIN_FILE ) );
-        define( 'BASEPLUGIN_ASSETS', BASEPLUGIN_URL . '/assets' );
+    public function define_constants()
+    {
+        define('VUEBASEPLUGIN_VERSION', $this->version);
+        define('VUEBASEPLUGIN_FILE', __FILE__);
+        define('VUEBASEPLUGIN_PATH', dirname(VUEBASEPLUGIN_FILE));
+        define('VUEBASEPLUGIN_INCLUDES', VUEBASEPLUGIN_PATH . '/includes');
+        define('VUEBASEPLUGIN_URL', plugins_url('', VUEBASEPLUGIN_FILE));
+        define('VUEBASEPLUGIN_ASSETS', VUEBASEPLUGIN_URL . '/assets');
     }
 
     /**
@@ -139,7 +145,8 @@ final class Base_Plugin {
      *
      * @return void
      */
-    public function init_plugin() {
+    public function init_plugin()
+    {
         $this->includes();
         $this->init_hooks();
     }
@@ -149,15 +156,16 @@ final class Base_Plugin {
      *
      * Nothing being called here yet.
      */
-    public function activate() {
+    public function activate()
+    {
 
-        $installed = get_option( 'baseplugin_installed' );
+        $installed = get_option('vuebaseplugin_installed');
 
-        if ( ! $installed ) {
-            update_option( 'baseplugin_installed', time() );
+        if (!$installed) {
+            update_option('vuebaseplugin_installed', time());
         }
 
-        update_option( 'baseplugin_version', BASEPLUGIN_VERSION );
+        update_option('vuebaseplugin_version', VUEBASEPLUGIN_VERSION);
     }
 
     /**
@@ -165,8 +173,8 @@ final class Base_Plugin {
      *
      * Nothing being called here yet.
      */
-    public function deactivate() {
-
+    public function deactivate()
+    {
     }
 
     /**
@@ -174,23 +182,24 @@ final class Base_Plugin {
      *
      * @return void
      */
-    public function includes() {
+    public function includes()
+    {
 
-        require_once BASEPLUGIN_INCLUDES . '/Assets.php';
+        require_once VUEBASEPLUGIN_INCLUDES . '/Assets.php';
 
-        if ( $this->is_request( 'admin' ) ) {
-            require_once BASEPLUGIN_INCLUDES . '/Admin.php';
+        if ($this->is_request('admin')) {
+            require_once VUEBASEPLUGIN_INCLUDES . '/Admin.php';
         }
 
-        if ( $this->is_request( 'frontend' ) ) {
-            require_once BASEPLUGIN_INCLUDES . '/Frontend.php';
+        if ($this->is_request('frontend')) {
+            require_once VUEBASEPLUGIN_INCLUDES . '/Frontend.php';
         }
 
-        if ( $this->is_request( 'ajax' ) ) {
-            // require_once BASEPLUGIN_INCLUDES . '/class-ajax.php';
+        if ($this->is_request('ajax')) {
+            // require_once VUEBASEPLUGIN_INCLUDES . '/class-ajax.php';
         }
 
-        require_once BASEPLUGIN_INCLUDES . '/Api.php';
+        require_once VUEBASEPLUGIN_INCLUDES . '/Api.php';
     }
 
     /**
@@ -198,12 +207,13 @@ final class Base_Plugin {
      *
      * @return void
      */
-    public function init_hooks() {
+    public function init_hooks()
+    {
 
-        add_action( 'init', array( $this, 'init_classes' ) );
+        add_action('init', array($this, 'init_classes'));
 
         // Localize our plugin
-        add_action( 'init', array( $this, 'localization_setup' ) );
+        add_action('init', array($this, 'localization_setup'));
     }
 
     /**
@@ -211,22 +221,23 @@ final class Base_Plugin {
      *
      * @return void
      */
-    public function init_classes() {
+    public function init_classes()
+    {
 
-        if ( $this->is_request( 'admin' ) ) {
-            $this->container['admin'] = new App\Admin();
+        if ($this->is_request('admin')) {
+            $this->container['admin'] = new VueBasePlugin\Admin();
         }
 
-        if ( $this->is_request( 'frontend' ) ) {
-            $this->container['frontend'] = new App\Frontend();
+        if ($this->is_request('frontend')) {
+            $this->container['frontend'] = new VueBasePlugin\Frontend();
         }
 
-        if ( $this->is_request( 'ajax' ) ) {
-            // $this->container['ajax'] =  new App\Ajax();
+        if ($this->is_request('ajax')) {
+            // $this->container['ajax'] =  new VueBasePlugin\Ajax();
         }
 
-        $this->container['api'] = new App\Api();
-        $this->container['assets'] = new App\Assets();
+        $this->container['api'] = new VueBasePlugin\Api();
+        $this->container['assets'] = new VueBasePlugin\Assets();
     }
 
     /**
@@ -234,8 +245,9 @@ final class Base_Plugin {
      *
      * @uses load_plugin_textdomain()
      */
-    public function localization_setup() {
-        load_plugin_textdomain( 'baseplugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    public function localization_setup()
+    {
+        load_plugin_textdomain('vuebaseplugin', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
 
     /**
@@ -245,25 +257,25 @@ final class Base_Plugin {
      *
      * @return bool
      */
-    private function is_request( $type ) {
-        switch ( $type ) {
-            case 'admin' :
+    private function is_request($type)
+    {
+        switch ($type) {
+            case 'admin':
                 return is_admin();
 
-            case 'ajax' :
-                return defined( 'DOING_AJAX' );
+            case 'ajax':
+                return defined('DOING_AJAX');
 
-            case 'rest' :
-                return defined( 'REST_REQUEST' );
+            case 'rest':
+                return defined('REST_REQUEST');
 
-            case 'cron' :
-                return defined( 'DOING_CRON' );
+            case 'cron':
+                return defined('DOING_CRON');
 
-            case 'frontend' :
-                return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+            case 'frontend':
+                return (!is_admin() || defined('DOING_AJAX')) && !defined('DOING_CRON');
         }
     }
+} // Vue_Base_Plugin
 
-} // Base_Plugin
-
-$baseplugin = Base_Plugin::init();
+$vuebaseplugin = Vue_Base_Plugin::init();

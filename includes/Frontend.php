@@ -1,13 +1,16 @@
 <?php
-namespace App;
+
+namespace VueBasePlugin;
 
 /**
  * Frontend Pages Handler
  */
-class Frontend {
+class Frontend
+{
 
-    public function __construct() {
-        add_shortcode( 'vue-app', [ $this, 'render_frontend' ] );
+    public function __construct()
+    {
+        add_shortcode('vue-app', [$this, 'render_frontend']);
     }
 
     /**
@@ -18,9 +21,10 @@ class Frontend {
      *
      * @return string
      */
-    public function render_frontend( $atts, $content = '' ) {
-        wp_enqueue_style( 'baseplugin-frontend' );
-        wp_enqueue_script( 'baseplugin-frontend' );
+    public function render_frontend($atts, $content = '')
+    {
+        wp_enqueue_style('baseplugin-frontend');
+        wp_enqueue_script('baseplugin-frontend');
 
         $content .= '<div id="vue-frontend-app"></div>';
 
