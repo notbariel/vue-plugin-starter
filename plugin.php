@@ -8,7 +8,7 @@ Author: Your Name
 Author URI: https://example.com/
 License: GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: baseplugin
+Text Domain: vuebaseplugin
 Domain Path: /languages
 */
 

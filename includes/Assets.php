@@ -73,28 +73,18 @@ class Assets
         $prefix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.min' : '';
 
         $scripts = [
-            'baseplugin-runtime' => [
-                'src'       => VUEBASEPLUGIN_ASSETS . '/js/runtime.js',
-                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/js/runtime.js'),
+            'vuebaseplugin-frontend' => [
+                'src'       => VUEBASEPLUGIN_ASSETS . '/frontend/main.js',
+                'deps'      => ['jquery'],
+                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/frontend/main.js'),
                 'in_footer' => true
             ],
-            'baseplugin-vendor' => [
-                'src'       => VUEBASEPLUGIN_ASSETS . '/js/vendors.js',
-                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/js/vendors.js'),
+            'vuebaseplugin-admin' => [
+                'src'       => VUEBASEPLUGIN_ASSETS . '/admin/main.js',
+                'deps'      => ['jquery'],
+                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/admin/main.js'),
                 'in_footer' => true
             ],
-            'baseplugin-frontend' => [
-                'src'       => VUEBASEPLUGIN_ASSETS . '/js/frontend.js',
-                'deps'      => ['jquery', 'baseplugin-vendor', 'baseplugin-runtime'],
-                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/js/frontend.js'),
-                'in_footer' => true
-            ],
-            'baseplugin-admin' => [
-                'src'       => VUEBASEPLUGIN_ASSETS . '/js/admin.js',
-                'deps'      => ['jquery', 'baseplugin-vendor', 'baseplugin-runtime'],
-                'version'   => filemtime(VUEBASEPLUGIN_PATH . '/assets/js/admin.js'),
-                'in_footer' => true
-            ]
         ];
 
         return $scripts;
@@ -109,14 +99,11 @@ class Assets
     {
 
         $styles = [
-            'baseplugin-style' => [
-                'src' =>  VUEBASEPLUGIN_ASSETS . '/css/style.css'
+            'vuebaseplugin-frontend' => [
+                'src' =>  VUEBASEPLUGIN_ASSETS . '/frontend/main.css'
             ],
-            'baseplugin-frontend' => [
-                'src' =>  VUEBASEPLUGIN_ASSETS . '/css/frontend.css'
-            ],
-            'baseplugin-admin' => [
-                'src' =>  VUEBASEPLUGIN_ASSETS . '/css/admin.css'
+            'vuebaseplugin-admin' => [
+                'src' =>  VUEBASEPLUGIN_ASSETS . '/admin/main.css'
             ],
         ];
 

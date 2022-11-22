@@ -52,8 +52,8 @@ class Admin
      */
     public function enqueue_scripts()
     {
-        wp_enqueue_style('baseplugin-admin');
-        wp_enqueue_script('baseplugin-admin');
+        wp_enqueue_style('vuebaseplugin-admin');
+        wp_enqueue_script('vuebaseplugin-admin');
     }
 
     /**

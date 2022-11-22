@@ -1,12 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import axios from "axios";
+window.axios = axios;
 
-Vue.config.productionTip = false
+import { createApp, h } from "vue";
+import App from "./App.vue";
+import router from "./router";
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#vue-frontend-app',
-  router,
-  render: h => h(App)
-})
+createApp(App).use(router).mount("#vue-frontend-app");

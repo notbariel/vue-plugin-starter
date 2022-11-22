@@ -1,17 +1,12 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import menuFix from './utils/admin-menu-fix'
+import axios from "axios";
+window.axios = axios;
 
-Vue.config.productionTip = false
+import { createApp, h } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import menuFix from "./utils/admin-menu-fix";
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#vue-admin-app',
-  router,
-  render: h => h(App)
-});
-
+createApp(App).use(router).mount("#vue-admin-app");
 
 // fix the admin menu for the slug "vue-app"
-menuFix('vue-app');
+menuFix("vue-app");

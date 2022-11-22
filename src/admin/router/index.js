@@ -1,21 +1,23 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from 'admin/pages/Home.vue'
-import Settings from 'admin/pages/Settings.vue'
+import { createWebHashHistory, createRouter } from "vue-router";
+import Home from "../pages/Home.vue";
+import Settings from "../pages/Settings.vue";
 
-Vue.use(Router)
+const routes = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+    component: Settings,
+  },
+];
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings
-    },
-  ]
-})
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+});
+
+export default router;
